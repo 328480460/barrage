@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>写下您对好友的印象</title>
+	<link rel="stylesheet" type="text/css" href="css/user_impression.css">
+	<script type="text/javascript" src="js/public.js"></script>
+	<script type="text/javascript" src="js/jquery-2.2.3.min.js?v=${Math.random()}"></script>
+</head>
+<body>
+	<div class="user-impression-container">
+		<div class="impression-title">
+			2017, 写下你对<span>XXXX</span>的印象
+		</div>
+		<div class="impression-danmu">
+			<div class="danmu-bg">
+				<div class="img">
+					<img src="images/user_impression/user_impression_07.jpg" />
+				</div>
+			</div>
+			<div class="jac-impression">
+				<img class="tada" src="images/user_impression/user_impression_02.png" />
+				<span class="impression-text">土豪</span>
+			</div>
+			<ul>
+				<!-- <li>
+					<img src="images/user_impression/user_impression_05.png" />
+					<span class="impression-text">靠谱的不得了</span>
+					<span class="impression-count">+1</span>
+				</li> -->
+			</ul>
+		</div>
+		<div class="impression-select clear">
+			<div class="impression-input">
+				<input type="text" placeholder="请输入您对聚爱财的印象" maxlength="7" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" />
+				<div class="send-btn">确定</div>
+			</div>
+			<div class="select-list clear">
+				<ul>
+					<li>细水总是长流</li>
+					<li>&#12288;土豪&#12288;</li>
+					<li>&#12288;特别漂亮&#12288;</li>
+					<li>寂寞寂寞就好</li>
+					<li>很帅气</li>
+				</ul>
+				<div class="hyp-btn">
+					<img src="images/user_impression/user_impression_04.png" />
+					<span>换一批</span>
+				</div>
+			</div>
+		</div>
+		<div class="share">收集我的好友印象</div>
+		<a class="footer" href="https://www.juaicai.cn/wap/user/newBjqRegister?channelType=648"></a>
+	</div>
+
+	<!-- 弹窗 -->
+	<div class="dialog-box">
+		<div class="dialog-box-main">
+			<div class="catImg"></div>
+			<h1>您写下的印象是xxxx</h1>
+			<p>他即将成为聚爱财的投资用户了哦！跟您的好友一起来让财富升值吧！</p>
+			<div class="dialog-box-btn">xxx（土豪）送你第一桶金</div>
+			<div class="close"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var autoPositionArr = ['2.1','3.8','0.8','3.2','0.2','4.4','1.4','2.6','3.4','0.4','1.8','4','0.7'];
+		var danmu = {
+			hypBtn : $('.hyp-btn'),//换一批按钮
+			hypOnoff:true,
+			selectedUl : $('.select-list ul'),
+			selectedLi : $('.select-list li'),//选择li
+			input : $('.impression-input input'),//弹幕输入框
+			container : $('.impression-danmu').find('ul'), //弹幕ul
+			sendBtn : $('.send-btn'), //发送按钮
+			page:0,
+			index : 0,
+			speed:3000,
+			startFn:function(){
+				var _this = this;
+				if(impressData.length != 0){
+					if( impressData[this.page].length <= 3 ){
+						this.speed = 3000;
+					}else if( impressData[this.page].length > 3 && impressData[this.page].length <= 9 ){
+						this.speed = 2500;
+					}else{
+						this.speed = 2000;
+					}
+					this.autoCreateFn(this.index,this.page);
+					var timer = setTimeout(function(){
+						// 当前页最后一条时
+						if( _this.index == impressData[_this.page].length-1 ){
+							_this.index = 0;
+							// 走到最后一页时
+							if( _this.page == 2 ){
+								// 页数归零
+								_this.page = 0;
+								// 覆盖第一页数据
+								impressData[0] = [
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎1',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'bbb',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎2',
+										'count':2,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎3',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎4',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎5',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎6',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎7',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎8',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎9',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'嘎嘎10',
+										'count':1,
+										'onoff':true
+									}
+								];
+							}else{
+								// 下一页
+								_this.page++;
+								// 添加或覆盖下一页数据
+								impressData[_this.page] = [
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十一',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'bbb',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十二',
+										'count':2,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十三',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十四',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十五',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十六',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十七',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十八',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论十九',
+										'count':1,
+										'onoff':true
+									},
+									{
+										'userName':'aaa',
+										'userImg':'images/user_impression/user_impression_05.png',
+										'text':'评论二十',
+										'count':1,
+										'onoff':true
+									}
+								];
+							}
+						}else{
+							_this.index++;
+						}
+						_this.startFn();
+						clearTimeout(timer);
+					},this.speed);
+				}else{
+					return
+				}
+			},
+			autoCreateFn:function(index,page){ //自动创建弹幕函数，index:每页的索引，page:页数
+				var li = $('<li></li>');
+				li.html( "<img src="+impressData[page][index].userImg+" /><span class='impression-text'>"+impressData[page][index].text+"</span><span class='impression-count'>+"+impressData[page][index].count+"</span>" );
+				li.css('top',autoPositionArr[index%13]+'rem');
+				li.on('touchend',function(){
+					impressData[page][index].count = impressData[page][index].onoff ? ++impressData[page][index].count : --impressData[page][index].count;
+					if(impressData[page][index].onoff){
+						var p = $("<p style='color:red;'>+1</p>");
+						li.find('p').remove();
+						li.append(p);
+					}else{
+						var p = $("<p style='color:green;'>-1</p>");
+						li.find('p').remove();
+						li.append(p);
+					}
+					impressData[page][index].onoff = !impressData[page][index].onoff;				
+					li.find('.impression-count').text( '+'+impressData[page][index].count );
+				});
+				this.container.append( li );
+				// li.find('img').load(function(){
+				// 	li.addClass('move');
+				// });	
+				li.addClass('move');			
+				li.on('webkitAnimationEnd',function(){
+					li.remove();
+				});
+			},
+			randomFn:function(a,b){ //随机数
+				var c = b-a+1;	
+				return Math.floor(Math.random() * c + a);
+			},
+			createFn:function(text,imgSrc){//手动添加弹幕函数，text:用户输入或选择印象文案,imgSrc:用户头像
+				var li = $('<li></li>');
+				var _count = 1; //赞数
+				var onoff = true;	//是否可赞开关
+				var _this = this;
+				li.html( "<img src="+imgSrc+" /><span class='impression-text'>"+text+"</span><span class='impression-count'>+"+_count+"</span>" );
+				li.css('top',autoPositionArr[this.index%13+2]+'rem');
+				li.addClass('move');//添加运动class
+				li.on('touchend',function(){
+					_count = onoff ? ++_count : --_count;
+					if(onoff){
+						var p = $("<p style='color:red;'>+1</p>");
+						li.find('p').remove();
+						li.append(p);
+					}else{
+						var p = $("<p style='color:green;'>-1</p>");
+						li.find('p').remove();
+						li.append(p);
+					}
+					onoff = !onoff;
+					li.find('.impression-count').text( '+'+_count );
+				});
+				this.container.append( li );
+				li.on('webkitAnimationEnd',function(){ //每条弹幕运动结束时触发
+					li.remove();
+					var _timer = setTimeout(function(){
+						impressData[_this.page].push( {
+							'userName':'eee',
+							'userImg':imgSrc,
+							'text':text,
+							'count':_count,
+							'onoff':onoff
+						} );
+						clearTimeout(_timer);
+						li.off('webkitAnimationEnd');
+					},3000);
+				});	
+			},
+		};
+
+		// jac印象
+		var friendImpressionArr = [
+			['转投功能做的好', '&#12288;很好&#12288;', '&#12288;很好用&#12288;',
+			'低风险', '活动多','易操作'],
+						['安全有保障', '&#12288;收益高&#12288;', '&#12288;产品丰富&#12288;',
+			'不错的产品', '值得信赖'],
+						['能让我多挣钱', '&#12288;&#12288;靠谱&#12288;&#12288;', '&#12288;贴心&#12288;',
+			'&#12288;赞&#12288;',  '坚持投聚爱财'],
+						['&#12288;风险低&#12288;', '&#12288;零坏账&#12288;', '&#12288;客服贴心&#12288;',
+			'绝对值得推荐', '回款快'],
+						['不错的选择', '&#12288;福利多&#12288;', '&#12288;稳妥&#12288;',
+			'&#12288;绝对安全&#12288;','&#12288;收益高&#12288;']
+		];
+
+		// 换一批
+		danmu.hypBtn.on('click',function(){
+			if(danmu.hypOnoff){
+				danmu.hypOnoff = !danmu.hypOnoff; //关闭换一批开关
+				danmu.selectedLi.removeClass('active'); 
+				var page = danmu.randomFn(0,4);
+				danmu.selectedLi.each(function(i,ele){
+					setTimeout(function(){
+						$(ele).addClass('out').removeClass('in');
+					},i*100)
+				});
+				danmu.selectedLi.eq(danmu.selectedLi.length-1).on('webkitAnimationEnd animationEnd',function(){
+					for(var i=0;i<friendImpressionArr[page].length;i++){
+						danmu.selectedLi.eq(i).html( friendImpressionArr[page][i] );
+					};
+					danmu.selectedLi.eq(danmu.selectedLi.length-1).off('webkitAnimationEnd animationEnd');
+					danmu.selectedLi.each(function(i,ele){
+						setTimeout(function(){
+							$(ele).addClass('in');
+						},i*100);
+					});
+					danmu.selectedLi.eq(danmu.selectedLi.length-1).on('webkitAnimationEnd animationEnd',function(){
+						danmu.hypOnoff = !danmu.hypOnoff;
+						danmu.selectedLi.eq(danmu.selectedLi.length-1).off('webkitAnimationEnd animationEnd');
+					});
+				});
+			}						
+		});
+
+		// 直接选择印象
+		danmu.selectedUl.on('touchend','li',function(e){
+			danmu.selectedLi.removeClass('active');
+			$(this).addClass('active');
+			danmu.input.val( $.trim( $(this).text() ) ); //将选中的印象文案置于input中。
+			e.preventDefault();
+		});
+
+		// 发送按钮
+		danmu.sendBtn.on('click',function(){
+			var inputVal = $.trim( danmu.input.val() ); //去除空格
+			if( inputVal != "" ){ //input输入不为空时
+				danmu.createFn( inputVal,'images/user_impression/user_impression_05.png' );
+				danmu.input.val("");
+				danmu.selectedLi.removeClass('active');
+			}else{
+				return
+			}			
+		});
+
+		//数据
+		var impressData = [ 
+			[
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论一',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'bbb',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论二',
+					'count':2,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论三',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论四',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论五',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论六',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论七',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论八',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论九',
+					'count':1,
+					'onoff':true
+				},
+				{
+					'userName':'aaa',
+					'userImg':'images/user_impression/user_impression_05.png',
+					'text':'评论十',
+					'count':1,
+					'onoff':true
+				}
+			],			
+		];
+		danmu.startFn();
+
+		// 弹窗
+		var dialogBox = {
+			el:$('.dialog-box'), //弹窗主体
+			title:$('.dialog-box h1'), //弹窗title
+			text:$('.dialog-box p'),	//弹窗内容
+			btn:$('.dialog-box .dialog-box-btn'),	//弹窗按钮文案
+			show:function(config){ //弹窗显示方法
+				this.el.css('display','block');
+				this.title.html( config.title );
+				this.text.html( config.text );
+				this.btn.html( config.btn );
+				this.btn.on('click',function(){
+					config.cb&&config.cb(); //确定按钮回调
+				});
+				$(document).on('touchmove',this.defaultFn);
+			},
+			hide:function(){ //弹窗隐藏方法
+				this.el.css('display','none');
+				this.title.html( "" );
+				this.text.html( "" );
+				this.btn.html( "" );
+				this.btn.off('click');
+				$(document).off('touchmove');
+			},
+			defaultFn:function(e){
+				e.preventDefault();
+			}
+		};
+
+
+		// dialogBox.show({
+		// 	cb:function(){				
+		// 		window.location = 'https://www.baidu.com';
+		// 	},
+		// 	title:'您写下的印象是xxxx',
+		// 	text:'他即将成为聚爱财的投资用户了哦！跟您的好友一起来让财富升值吧！',
+		// 	btn:'xxx（土豪）送你第一桶金'
+		// });
+
+		$('.close').on('click',function(){
+			dialogBox.hide();
+		});
+
+
+		// 解决ios双击
+		(function()
+		{
+		    var agent = navigator.userAgent.toLowerCase();        //检测是否是ios
+		    var iLastTouch = null;                                //缓存上一次tap的时间
+		    if (agent.indexOf('iphone') >= 0 || agent.indexOf('ipad') >= 0)
+		    {
+		        document.body.addEventListener('touchend', function(event)
+		        {
+		            var iNow = new Date()
+		                .getTime();
+		            iLastTouch = iLastTouch || iNow + 1 /** 第一次时将iLastTouch设为当前时间+1 */ ;
+		            var delta = iNow - iLastTouch;
+		            if (delta < 500 && delta > 0)
+		            {
+		                event.preventDefault();
+		                return false;
+		            }
+		            iLastTouch = iNow;
+		        }, false);
+		    }
+		})();
+	</script>
+</body>
+</html>
